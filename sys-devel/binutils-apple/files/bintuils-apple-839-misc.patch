@@ -1,0 +1,20 @@
+diff -Naur /tmp/apple/portage/misc/libtool.c /tmp/apple/patched/misc/libtool.c
+--- /tmp/apple/portage/misc/libtool.c	2014-02-16 10:35:47.187018923 -0800
++++ /tmp/apple/patched/misc/libtool.c	2013-09-23 05:14:34.000000000 -0700
+@@ -369,13 +369,9 @@
+ 	(void)umask(oumask);
+ 
+ 	/* see if this is being run as ranlib */
+-	p = strrchr(argv[0], '/');
+-	if(p != NULL)
+-	    p++;
+-	else
+-	    p = argv[0];
+-	if(strncmp(p, "ranlib", sizeof("ranlib") - 1) == 0)
+-	    cmd_flags.ranlib = TRUE;
++#ifdef RANLIB
++    cmd_flags.ranlib = TRUE;
++#endif
+ 
+ 	/* The default is to used long names */
+ 	cmd_flags.use_long_names = TRUE;
