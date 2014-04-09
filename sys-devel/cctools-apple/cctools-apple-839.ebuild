@@ -44,13 +44,10 @@ BINPATH=usr/${CHOST}/${CTARGET}/${PN}/${PV}/
 #DATAPATH=usr/share/${PN}/${CTARGET}/${PV}
 
 pkg_setup() {
-	if [[ -z $PORTDIR_OVERLAY ]] ; then
-		eerror "Please setup a local portage overlay."
-	fi
-
 	if ! is_cross ; then
 		eerror "Please create the symbolic link /usr/local/portage/cross-<arch>-apple-darwin<release>/${PN} and point it to the folder containing this ebuild."
 		eerror "\tEx: mkdir -p /usr/local/portage/cross-i686-apple-darwin9/ && ln -s /var/lib/layman/crossdev-apple/sys-devel/cctools-apple/ /usr/local/portage/cross-i686-apple-darwin9/${PN}"
+		eerror "Remeber to add cross-i686-apple-darwin9 to your /etc/portage/categories file and create a keyword file."
 		die
 	fi
 }
