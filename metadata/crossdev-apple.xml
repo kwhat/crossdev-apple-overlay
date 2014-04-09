@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<repositories version="1.0">
+	<repo priority="50" quality="experimental" status="unofficial">
+	<name>crossdev-apple</name>
+	<description>Overlay for apple cross-compiling tools.</description>
+	<homepage>http://github.com/kwhat/crossdev-apple-overlay</homepage>
+	<owner>
+		<email>alex@1stleg.com</email>
+	</owner>
+	<source type="git">git://github.com/kwhat/crossdev-apple-overlay.git</source>
+</repo>
+</repositories>

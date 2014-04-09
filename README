@@ -1,16 +1,4 @@
 Overlay for apple cross-compiling tools.
 
-Add the following to /etc/layman/overlays/crossdev-apple.xml 
-
-<?xml version="1.0" ?>                                                                                                     
-<repositories version="1.0">
-        <repo priority="50" quality="experimental" status="unofficial">
-                <name>crossdev-apple</name>
-                <description>Overlay for apple cross-compiling tools.</description>
-                <homepage>http://github.com/kwhat/crossdev-apple</homepage>
-                <owner>
-                        <email>alex@1stleg.com</email>
-                </owner>
-                <source type="git">git://github.com/kwhat/crossdev-apple.git</source>
-        </repo>
-</repositories>
+Copy metadata/crossdev-apple.xml to /etc/layman/overlays/ to add to layman.
+Then install locally via layman -a crossdev-apple && layman -S.
