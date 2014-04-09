@@ -7,7 +7,7 @@ inherit git-2
 
 SRC_URI=""
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~x86-fbsd"
-EGIT_REPO_URI="git://git.overlays.gentoo.org/proj/crossdev.git"
+EGIT_REPO_URI="git://github.com/kwhat/crossdev-apple.git"
 
 DESCRIPTION="Gentoo Cross-toolchain generator with support for apple toolchains"
 HOMEPAGE="http://www.gentoo.org/"
