@@ -16,7 +16,6 @@ if [[ ${CTARGET} = ${CHOST} ]] ; then
 fi
 is_cross() { [[ ${CHOST} != ${CTARGET} ]] ; }
 
-
 # See: https://code.google.com/p/ios-toolchain-based-on-clang-for-linux/
 HOMEPAGE="http://www.opensource.apple.com"
 DESCRIPTION="Darwin 64-bit static linker ld(1), Xcode Tools"
@@ -24,15 +23,9 @@ EGIT_REPO_URI="git://github.com/kwhat/${PN/-apple/}.git"
 EGIT_BRANCH="linux-${PV}"
 
 LICENSE="APSL-2"
+SLOT="0"
 
-if is_cross; then
-	SLOT="${CTARGET}-${PV}"
-else
-	SLOT="${PV}"
-fi
-
-
-KEYWORDS="x86 amd64"
+KEYWORDS="~x86 ~amd64"
 #IUSE="objc++"
 IUSE=""
 
@@ -42,13 +35,17 @@ RDEPEND=""
 S=${WORKDIR}/${P/-apple/}
 
 BINPATH=/usr/${CHOST}/${CTARGET}/${PN}-bin/${PV}
-LIBPATH=/usr/$(get_libdir)/odcctools/${CTARGET}/${PV}
-DATAPATH=/usr/share/${PN}/${CTARGET}/${PV}
+#LIBPATH=/usr/$(get_libdir)/odcctools/${CTARGET}/${PV}
+#DATAPATH=/usr/share/${PN}/${CTARGET}/${PV}
 
 pkg_setup() {
-	if ! is_cross ; then 
-		eerror "Please set your CTARGET variable to the build target."
-		eerror "\tEx: i686-apple-darwin9"
+	if [[ -z $PORTDIR_OVERLAY ]] ; then
+		eerror "Please setup a local portage overlay."
+	fi
+
+	if ! is_cross ; then
+		eerror "Please create the symbolic link /usr/local/portage/cross-<arch>-apple-darwin<release>/${PN} and point it to the folder containing this ebuild."
+		eerror "\tEx: mkdir -p /usr/local/portage/cross-i686-apple-darwin9/ && ln -s /var/lib/layman/crossdev-apple/sys-devel/cctools-apple/ /usr/local/portage/cross-i686-apple-darwin9/${PN}"
 		die
 	fi
 }
@@ -60,24 +57,21 @@ src_prepare() {
 src_configure() {
 	CC=clang \
 	CXX=clang++ \
-	econf \
-		--prefix=/usr \
-		--target=${CTARGET} \
-		|| die
+	econf --prefix=/usr || die
 }
 
 src_install() {
 	emake DESTDIR="${D}" install || die
 
 	# Dirty hack to put files in the correct location.
-	mkdir -vp "${D}"usr/${CHOST}/${CTARGET}/${PN}/${PV}/
+	mkdir -vp "${D}"${BINPATH}
 
 	# Move all files out of /usr/bin
 	for item in "${D}"usr/bin/* ; do
-		mv -v "${item}" "${D}"usr/${CHOST}/${CTARGET}/${PN}/${PV}/$(basename "${item}") || die
+		mv -v "${item}" "${D}"${BINPATH}$(basename "${item}") || die
 	done
 
-	for item in "${D}"usr/${CHOST}/${CTARGET}/${PN}/${PV}/* ; do
+	for item in "${D}"${BINPATH}* ; do
 		[[ -x ${item} ]] && \
 			dosym "${item}" /usr/libexec/gcc/${CTARGET}/$(basename "${item}" | sed -e "s/${CTARGET}-//") && \
 			dosym "${D}"usr/libexec/gcc/${CTARGET}/"$(basename "${item}" | sed -e "s/${CTARGET}-//")" /usr/bin/$(basename "${item}") || die
