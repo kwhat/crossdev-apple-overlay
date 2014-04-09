@@ -20,6 +20,6 @@ KEYWORDS="~x86 ~amd64"
 IUSE=""
 
 DEPEND="sys-devel/llvm[clang]
-	=sys-devel/cctools-839
-	=sys-devel/ld64-134.9"
+	=sys-devel/cctools-apple-839
+	=sys-devel/ld64-apple-134.9"
 RDEPEND="${DEPEND}"
