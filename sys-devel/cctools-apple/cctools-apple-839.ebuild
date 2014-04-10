@@ -65,6 +65,9 @@ src_configure() {
 src_install() {
 	emake DESTDIR="${D}" install || die
 
+	# I have no idea what these are, testing needed.
+	rm -Rv "${D}"usr/libexec/as
+
 	# Dirty hack to put files in the correct location.
 	mkdir -vp "${D}"${BINPATH}
 

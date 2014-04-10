@@ -34,7 +34,7 @@ RDEPEND=""
 
 S=${WORKDIR}/${P/-apple/}
 
-BINPATH=/usr/${CHOST}/${CTARGET}/${PN}-bin/${PV}
+BINPATH=usr/${CHOST}/${CTARGET}/${PN}/${PV}/
 #LIBPATH=/usr/$(get_libdir)/odcctools/${CTARGET}/${PV}
 #DATAPATH=/usr/share/${PN}/${CTARGET}/${PV}
 
