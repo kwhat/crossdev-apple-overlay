@@ -17,10 +17,21 @@ KEYWORDS="amd64 x86"
 IUSE=""
 RESTRICT="fetch strip"
 
+export CTARGET=${CTARGET:-${CHOST}}
+if [[ ${CTARGET} = ${CHOST} ]] ; then
+	if [[ ${CATEGORY/cross-} != ${CATEGORY} ]] ; then
+		export CTARGET=${CATEGORY/cross-}
+	fi
+fi
+is_cross() { [[ ${CHOST} != ${CTARGET} ]] ; }
+
 DEPEND="app-arch/cpio
 	app-arch/p7zip"
 RDEPEND=""
 
+if is_cross ; then
+	DEPEND="${DEPEND} =sys-devel/${P}"
+fi
 
 pkg_nofetch() {
 	eerror "Please go to"
@@ -39,12 +50,16 @@ src_unpack() {
 	mv SDKs ${P}
 }
 
-src_copile(){ 
+src_copile() {
 	mv %{T}/MacOSX${PV}.sdk/*
 }
 
 src_install() {
-	dodir /opt/MacOSX${PV}.sdk
-	mv "${WORKDIR}"/${P}/MacOSX${PV}.sdk "${ED}"/opt/
-	dosym /opt/MacOSX${PV}.sdk/System/Library/Frameworks /opt/MacOSX${PV}.sdk/Library/Frameworks
+	if ! is_cross ; then
+		dosym /opt/MacOSX${PV}.sdk/usr /usr/${CTARGET}/usr
+	else
+		dodir /opt/MacOSX${PV}.sdk
+		mv "${WORKDIR}"/${P}/MacOSX${PV}.sdk/* "${ED}"/opt/MacOSX${PV}.sdk
+		dosym /opt/MacOSX${PV}.sdk/System/Library/Frameworks /opt/MacOSX${PV}.sdk/Library/Frameworks
+	fi
 }
