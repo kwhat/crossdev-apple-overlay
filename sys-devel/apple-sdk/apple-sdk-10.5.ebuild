@@ -54,10 +54,10 @@ src_unpack() {
 #}
 
 src_install() {
-	dist=/opt/MacOSX${PV}.sdk/usr
+	dist=/opt/MacOSX${PV}.sdk
 
 	if is_cross ; then
-		dist=/usr/${CTARGET}/usr
+		dist=/usr/${CTARGET}
 	fi
 
 	dodir ${dist}
