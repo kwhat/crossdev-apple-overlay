@@ -14,24 +14,13 @@ LICENSE="APSL-2"
 SLOT="${PV}"
 
 KEYWORDS="amd64 x86"
-IUSE=""
+IUSE="crosscompile_opts_headers-only"
 RESTRICT="fetch strip"
 
-export CTARGET=${CTARGET:-${CHOST}}
-if [[ ${CTARGET} = ${CHOST} ]] ; then
-	if [[ ${CATEGORY/cross-} != ${CATEGORY} ]] ; then
-		export CTARGET=${CATEGORY/cross-}
-	fi
-fi
-is_cross() { [[ ${CHOST} != ${CTARGET} ]] ; }
-
 DEPEND="app-arch/cpio
-	app-arch/p7zip"
+	app-arch/p7zip
+	crosscompile_opts_headers-only? ( =sys-devel/${P} )"
 RDEPEND=""
-
-if is_cross ; then
-	DEPEND="${DEPEND} =sys-devel/${P}"
-fi
 
 pkg_nofetch() {
 	eerror "Please go to"
@@ -51,11 +40,11 @@ src_unpack() {
 }
 
 src_copile() {
-	mv %{T}/MacOSX${PV}.sdk/*
+	use crosscompile_opts_headers-only || mv %{T}/MacOSX${PV}.sdk/*
 }
 
 src_install() {
-	if ! is_cross ; then
+	if use crosscompile_opts_headers-only ; then
 		dosym /opt/MacOSX${PV}.sdk/usr /usr/${CTARGET}/usr
 	else
 		dodir /opt/MacOSX${PV}.sdk
