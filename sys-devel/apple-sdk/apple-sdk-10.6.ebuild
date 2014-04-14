@@ -37,8 +37,8 @@ pkg_nofetch() {
 	eerror "    ${HOMEPAGE}"
 	eerror "and download the Xcode and iOS SDK cd image."
 	eerror "Extract the image using "
-	eerror "    7z e <image>.dmg 5.hfs && \\"
-	eerror "    7z e 5.hfs Xcode/Packages/MacOSX${PV}.pkg -o${DISTDIR}"
+	eerror "    7z e <image>.dmg ?.hfs && \\"
+	eerror "    7z e ?.hfs Xcode/Packages/MacOSX${PV}.pkg -o${DISTDIR}"
 }
 
 src_unpack() {
@@ -48,10 +48,6 @@ src_unpack() {
 
 	mv SDKs ${P}
 }
-
-#src_copile() {
-#	use crosscompile_opts_headers-only || mv %{T}/MacOSX${PV}.sdk/*
-#}
 
 src_install() {
 	dist=/opt/MacOSX${PV}.sdk
