@@ -31,6 +31,8 @@ RESTRICT="fetch strip"
 DEPEND="app-arch/p7zip"
 RDEPEND=""
 
+S="${WORKDIR}"/MacOSX${PV}.sdk
+
 pkg_nofetch() {
 	eerror "Please go to"
 	eerror "    ${HOMEPAGE}"
