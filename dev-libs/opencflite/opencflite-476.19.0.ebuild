@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=5
 
 DESCRIPTION="A cross platform toolkit for building applications on Mac OS X, Windows, and Linux."
 HOMEPAGE="http://sourceforge.net/projects/opencflite/"
@@ -10,14 +10,18 @@ SRC_URI="http://downloads.sourceforge.net/project/opencflite/opencflite/476.19.0
 
 LICENSE="APSL-2"
 SLOT="0"
-KEYWORDS="~x86 amd64"
-IUSE=""
+KEYWORDS="~amd64 ~x86"
+IUSE="debug"
 
 DEPEND=""
 RDEPEND="${DEPEND}"
 
 src_configure() {
-	econf --with-tz-includes=${FILESDIR}
+	use debug && filter-flags -fomit-frame-pointer
+	econf \
+		--with-tz-includes=${FILESDIR} \
+		$(use_enable debug) \
+		$(use_enable debug profile)
 }
 
 src_compile() {
