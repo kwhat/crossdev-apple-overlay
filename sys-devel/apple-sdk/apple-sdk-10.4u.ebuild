@@ -55,6 +55,6 @@ src_install() {
 	fi
 
 	dodir ${dist}
-	mv "${WORKDIR}"/${P}/* "${ED}"${dist}
+	mv "${WORKDIR}"/MacOSX${PV}.sdk/* "${ED}"${dist}
 	dosym ${dist}/System/Library/Frameworks ${dist}/Library/Frameworks
 }
