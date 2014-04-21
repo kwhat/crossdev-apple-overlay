@@ -8,7 +8,7 @@ inherit eutils
 
 DESCRIPTION="Darwin SDK header files"
 HOMEPAGE="http://developer.apple.com/devcenter/mac/"
-SRC_URI="MacOSX${PV/u/.Universal}.pkg"
+SRC_URI="${P}.tar.bz2"
 
 export CTARGET=${CTARGET:-${CHOST}}
 if [[ ${CTARGET} = ${CHOST} ]] ; then
@@ -28,25 +28,19 @@ fi
 KEYWORDS="~amd64 ~x86"
 RESTRICT="fetch strip"
 
-DEPEND="app-arch/cpio
-	app-arch/p7zip"
+DEPEND="app-arch/p7zip"
 RDEPEND=""
 
 pkg_nofetch() {
 	eerror "Please go to"
 	eerror "    ${HOMEPAGE}"
-	eerror "and download the Xcode and iOS SDK cd image."
+	eerror "and download the Xcode 4.3.3 cd image."
 	eerror "Extract the image using "
 	eerror "    7z e <image>.dmg ?.hfs && \\"
-	eerror "    7z e ?.hfs Xcode/Packages/MacOSX${PV}.pkg -o${DISTDIR}"
-}
-
-src_unpack() {
-	7z x ${DISTDIR}/${A} -y -o${T} && \
-	7z x ${T}/Payload -y -o${T} && \
-	cpio -i < ${T}/Payload~
-
-	mv SDKs ${P}
+	eerror "    mkdir tmp && \\"
+	eerror "    mount -oloop ?.hfs ./tmp &&\\"
+	eerror "    cd ./tmp/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs &&\\"
+	eerror "    tar cjvf ${DISTDIR}/${P}.tar.bz2 ./MacOSX${PV}.sdk"
 }
 
 src_install() {

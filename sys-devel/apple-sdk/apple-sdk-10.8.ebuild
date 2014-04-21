@@ -28,23 +28,19 @@ fi
 KEYWORDS="~amd64 ~x86"
 RESTRICT="fetch strip"
 
-DEPEND="app-arch/cpio
-	app-arch/p7zip"
+DEPEND="app-arch/p7zip"
 RDEPEND=""
 
 pkg_nofetch() {
 	eerror "Please go to"
 	eerror "    ${HOMEPAGE}"
-	eerror "and download the Xcode 3.2.6 cd image."
+	eerror "and download the Xcode 5.1.1 cd image."
 	eerror "Extract the image using "
 	eerror "    7z e <image>.dmg ?.hfs && \\"
-	eerror "    7z e ?.hfs Xcode and iOS SDK/Packages/MacOSX${PV}.pkg && \\"
-	eerror "    7z x MacOSX${PV}.pkg Payload && \\"
-	eerror "    7z x ./Payload && \\"
-	eerror "    cpio -i < ${T}/Payload~ && \\"
-	eerror "    cd ./SDKs && \\"
+	eerror "    mkdir tmp && \\"
+	eerror "    mount -oloop ?.hfs ./tmp &&\\"
+	eerror "    cd ./tmp/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs &&\\"
 	eerror "    tar cjvf ${DISTDIR}/${P}.tar.bz2 ./MacOSX${PV}.sdk"
-
 }
 
 src_install() {
@@ -55,6 +51,6 @@ src_install() {
 	fi
 
 	dodir ${dist}
-	mv "${WORKDIR}"/${P}/* "${ED}"${dist}
+	mv "${WORKDIR}"/${P}/MacOSX${PV}.sdk/* "${ED}"${dist}
 	dosym ${dist}/System/Library/Frameworks ${dist}/Library/Frameworks
 }

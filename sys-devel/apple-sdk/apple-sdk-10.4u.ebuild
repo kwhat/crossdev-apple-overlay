@@ -8,7 +8,7 @@ inherit eutils
 
 DESCRIPTION="Darwin SDK header files"
 HOMEPAGE="http://developer.apple.com/devcenter/mac/"
-SRC_URI="MacOSX${PV/u/.Universal}.pkg"
+SRC_URI="${P}.tar.bz2"
 
 export CTARGET=${CTARGET:-${CHOST}}
 if [[ ${CTARGET} = ${CHOST} ]] ; then
@@ -35,18 +35,16 @@ RDEPEND=""
 pkg_nofetch() {
 	eerror "Please go to"
 	eerror "    ${HOMEPAGE}"
-	eerror "and download the Xcode and iOS SDK cd image."
+	eerror "and download the Xcode 3.2.6 cd image."
 	eerror "Extract the image using "
 	eerror "    7z e <image>.dmg ?.hfs && \\"
-	eerror "    7z e ?.hfs Xcode/Packages/MacOSX${PV}.pkg -o${DISTDIR}"
-}
+	eerror "    7z e ?.hfs Xcode and iOS SDK/Packages/MacOSX${PV/u/Universal}.pkg && \\"
+	eerror "    7z x MacOSX${PV/u/Universal}.pkg Payload && \\"
+	eerror "    7z x ./Payload && \\"
+	eerror "    cpio -i < ${T}/Payload~ && \\"
+	eerror "    cd ./SDKs && \\"
+	eerror "    tar cjvf ${DISTDIR}/${P}.tar.bz2 ./MacOSX${PV}.sdk"
 
-src_unpack() {
-	7z x ${DISTDIR}/${A} -y -o${T} && \
-	7z x ${T}/Payload -y -o${T} && \
-	cpio -i < ${T}/Payload~
-
-	mv SDKs ${P}
 }
 
 src_install() {
@@ -57,6 +55,6 @@ src_install() {
 	fi
 
 	dodir ${dist}
-	mv "${WORKDIR}"/${P}/MacOSX${PV}.sdk/* "${ED}"${dist}
+	mv "${WORKDIR}"/${P}/* "${ED}"${dist}
 	dosym ${dist}/System/Library/Frameworks ${dist}/Library/Frameworks
 }
