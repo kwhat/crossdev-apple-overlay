@@ -13,7 +13,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="debug"
 
-DEPEND=""
+DEPEND="dev-libs/icu"
 RDEPEND="${DEPEND}"
 
 src_configure() {
