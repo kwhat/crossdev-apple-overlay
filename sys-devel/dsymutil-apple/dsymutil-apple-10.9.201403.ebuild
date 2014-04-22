@@ -39,13 +39,12 @@ pkg_nofetch() {
 
 S="${WORKDIR}"
 
-src_copile(){ 
-	mv usr/bin/dsymutil usr/bin/dsymutil-apple
-	cp ${FILESDIR}/dsymutil usr/bin/dsymutil
+src_compile() {
+	mv usr/bin/dsymutil dsymutil-apple
+	cp ${FILESDIR}/dsymutil dsymutil
 }
 
 src_install() {
-	into usr/bin
-	dobin usr/bin/dsymutil
-	dobin usr/bin/dsymutil-apple
+	dobin dsymutil
+	dobin dsymutil-apple
 }
