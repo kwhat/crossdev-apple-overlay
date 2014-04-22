@@ -2,3 +2,7 @@ Gentoo layman overlay for apple cross-compiling tools.
 
 Copy metadata/crossdev-apple.xml to /etc/layman/overlays/ to add this repository to layman.
 Then install locally via layman -a crossdev-apple && layman -S.
+
+To install:  crossdev -v --target <arch>-apple-darwin<ver>
+
+Ex: crossdev -v --target i586-apple-darwin9
