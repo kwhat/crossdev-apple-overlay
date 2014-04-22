@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/usr/bin/ld-mac /usr/bin/dsymutil-apple $@
