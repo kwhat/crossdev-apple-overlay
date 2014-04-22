@@ -15,7 +15,7 @@ HOMEPAGE="https://github.com/shinh/maloader"
 
 LICENSE="BSD-2 BSD APSL MIT"
 SLOT="0"
-IUSE=""
+IUSE="+libcxx"
 
 DEPEND="dev-libs/opencflite app-arch/p7zip"
 RDEPEND="${DEPEND}"
@@ -26,7 +26,7 @@ RDEPEND="${DEPEND}"
 
 src_compile() {
 	# TODO: debug flag ->use emake all
-	emake release || die "make release failed"
+	emake release $(use libcxx && echo USE_LIBCXX=1) || die "make release failed"
 	mv extract maloader-extract || die
 }
 

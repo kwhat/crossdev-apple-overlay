@@ -19,7 +19,7 @@ RESTRICT="fetch strip"
 
 DEPEND="app-arch/cpio
 	app-arch/p7zip
-	app-emulation/maloader"
+	app-emulation/maloader[libcxx]"
 RDEPEND=""
 
 
