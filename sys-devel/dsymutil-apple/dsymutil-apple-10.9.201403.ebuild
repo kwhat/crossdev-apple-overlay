@@ -11,7 +11,7 @@ HOMEPAGE="http://developer.apple.com/devcenter/mac/"
 SRC_URI="${P}.tar.bz2"
 
 LICENSE="APSL-2"
-SLOT="${PV}"
+SLOT=0
 
 KEYWORDS="~amd64 ~x86"
 IUSE=""
