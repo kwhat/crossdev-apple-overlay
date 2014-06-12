@@ -34,7 +34,7 @@ pkg_nofetch() {
 	eerror "    7z x Payload && \\"
 	eerror "    cpio -i < Payload~ && \\"
 	eerror "    cd Library/Developer/CommandLineTools && \\"
-	eerror "    tar cjvf ${DISTFILES}/${P}.tar.bz2 usr/bin/dsymutil && \\"
+	eerror "    tar cjvf ${DISTDIR}/${P}.tar.bz2 usr/bin/dsymutil"
 }
 
 S="${WORKDIR}"
