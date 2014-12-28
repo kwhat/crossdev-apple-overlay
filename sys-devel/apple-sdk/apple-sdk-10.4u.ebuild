@@ -43,10 +43,10 @@ pkg_nofetch() {
 	eerror "    7z e ?.hfs Xcode and iOS SDK/Packages/MacOSX${PV/u/Universal}.pkg && \\"
 	eerror "    7z x MacOSX${PV/u/Universal}.pkg Payload && \\"
 	eerror "    7z x ./Payload && \\"
-	eerror "    cpio -i < ${T}/Payload~ && \\"
+	eerror "    cpio -i < ./Payload~ && \\"
 	eerror "    cd ./SDKs && \\"
 	eerror "    tar cjvf ${DISTDIR}/${P}.tar.bz2 ./MacOSX${PV}.sdk"
-
+	einfo "Note: You may require app-arch/cpio to extract the payload."
 }
 
 src_install() {
