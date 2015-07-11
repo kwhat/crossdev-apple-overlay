@@ -43,6 +43,7 @@ pkg_nofetch() {
 	eerror "    mount -oloop ?.hfs ./tmp &&\\"
 	eerror "    cd ./tmp/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs &&\\"
 	eerror "    tar cjvf ${DISTDIR}/${P}.tar.bz2 ./MacOSX${PV}.sdk"
+	einfo "Note: You may require CONFIG_HFS_FS to mount the hfs partition."
 }
 
 src_install() {

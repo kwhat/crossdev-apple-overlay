@@ -36,14 +36,20 @@ S="${WORKDIR}"/MacOSX${PV}.sdk
 pkg_nofetch() {
 	eerror "Please go to"
 	eerror "    ${HOMEPAGE}"
-	eerror "and download the Xcode 4.3.3 cd image."
+	eerror "and download the Command Line Tools (OS X ${PV}) Xcode 6.1.1."
 	eerror "Extract the image using "
 	eerror "    7z e <image>.dmg ?.hfs && \\"
 	eerror "    mkdir tmp && \\"
 	eerror "    mount -oloop ?.hfs ./tmp &&\\"
-	eerror "    cd ./tmp/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs &&\\"
+	eerror "    7z x ./tmp/*.pkg DevSDK_OSX1010.pkg/Payload &&\\"
+	eerror "    mv DevSDK_OSX${PN/./}.pkg ./MacOSX${PV}.sdk &&\\"
+	eerror "    cd ./MacOSX${PV}.sdk &&\\"
+	eerror "    7z x ./Payload && \\"
+	eerror "    cpio -i < ./Payload~ && \\"
+	eerror "    rm -v ./Payload* && \\"
+	eerror "    cd .. && \\"
 	eerror "    tar cjvf ${DISTDIR}/${P}.tar.bz2 ./MacOSX${PV}.sdk"
-	einfo "Note: You may require CONFIG_HFS_FS to mount the hfs partition."
+	einfo "Note: You may require CONFIG_HFS_FS and BLK_DEV_LOOP to mount the hfs partition."
 }
 
 src_install() {

@@ -18,14 +18,14 @@ is_cross() { [[ ${CHOST} != ${CTARGET} ]] ; }
 
 # See: https://code.google.com/p/ios-toolchain-based-on-clang-for-linux/
 HOMEPAGE="http://www.opensource.apple.com"
-DESCRIPTION="Darwin assembler as(1) and static linker ld(1), XCode Tools ${PV}"
+DESCRIPTION="Darwin assembler as(1) and static linker ld(1)"
 EGIT_REPO_URI="git://github.com/kwhat/${PN}.git"
-EGIT_BRANCH="${PV}"
+EGIT_BRANCH="master"
 
 LICENSE="APSL-2"
 SLOT="0"
 
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="-x86 -amd64"
 #IUSE="objc++"
 IUSE=""
 
