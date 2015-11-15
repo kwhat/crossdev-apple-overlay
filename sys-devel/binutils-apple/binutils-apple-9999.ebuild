@@ -29,7 +29,8 @@ KEYWORDS="-x86 -amd64"
 #IUSE="objc++"
 IUSE=""
 
-DEPEND="sys-devel/dsymutil-apple
+DEPEND="app-arch/xar
+	sys-devel/dsymutil-apple
 	sys-devel/llvm[clang]
 	gnustep-base/libobjc2"
 RDEPEND=""
