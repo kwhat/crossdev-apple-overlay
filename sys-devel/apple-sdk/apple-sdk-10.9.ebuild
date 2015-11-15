@@ -1,14 +1,15 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI="5"
 
-inherit eutils
+inherit eutils git-2
 
 DESCRIPTION="Darwin SDK header files"
 HOMEPAGE="http://developer.apple.com/devcenter/mac/"
-SRC_URI="${P}.tar.bz2"
+EGIT_REPO_URI="git://github.com/kwhat/${PN}.git"
+EGIT_BRANCH="${PV}"
 
 export CTARGET=${CTARGET:-${CHOST}}
 if [[ ${CTARGET} = ${CHOST} ]] ; then
@@ -25,26 +26,13 @@ else
 	SLOT="${PV}"
 fi
 
-KEYWORDS="~amd64 ~x86"
-RESTRICT="fetch strip"
+KEYWORDS="amd64 x86"
+RESTRICT="strip"
 
-DEPEND="app-arch/p7zip"
+DEPEND=""
 RDEPEND=""
 
 S="${WORKDIR}"/MacOSX${PV}.sdk
-
-pkg_nofetch() {
-	eerror "Please go to"
-	eerror "    ${HOMEPAGE}"
-	eerror "and download the Xcode 5.1.1 cd image."
-	eerror "Extract the image using "
-	eerror "    7z e <image>.dmg ?.hfs && \\"
-	eerror "    mkdir tmp && \\"
-	eerror "    mount -oloop ?.hfs ./tmp &&\\"
-	eerror "    cd ./tmp/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs &&\\"
-	eerror "    tar cjvf ${DISTDIR}/${P}.tar.bz2 ./MacOSX${PV}.sdk"
-	einfo "Note: You may require CONFIG_HFS_FS and BLK_DEV_LOOP to mount the hfs partition."
-}
 
 src_install() {
 	dist=/opt/MacOSX${PV}.sdk
@@ -54,6 +42,6 @@ src_install() {
 	fi
 
 	dodir ${dist}
-	mv "${WORKDIR}"/${P}/MacOSX${PV}.sdk/* "${ED}"${dist}
+	mv "${WORKDIR}"/MacOSX${PV}.sdk/* "${ED}"${dist}
 	dosym ${dist}/System/Library/Frameworks ${dist}/Library/Frameworks
 }
