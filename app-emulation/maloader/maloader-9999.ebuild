@@ -17,7 +17,7 @@ LICENSE="BSD-2 BSD APSL MIT"
 SLOT="0"
 IUSE="+libcxx"
 
-DEPEND="dev-libs/opencflite app-arch/p7zip >=sys-devel/llvm-3.5[clang]"
+DEPEND="dev-libs/opencflite >=sys-devel/llvm-3.5[clang]"
 RDEPEND="${DEPEND}"
 
 #src_configure() {
