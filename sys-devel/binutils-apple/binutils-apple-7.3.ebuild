@@ -20,16 +20,17 @@ is_cross() { [[ ${CHOST} != ${CTARGET} ]] ; }
 HOMEPAGE="http://www.opensource.apple.com"
 DESCRIPTION="Darwin assembler as(1) and static linker ld(1)"
 EGIT_REPO_URI="git://github.com/kwhat/${PN}.git"
-EGIT_BRANCH="${PV}"
+EGIT_BRANCH="7.3"
 
 LICENSE="APSL-2"
-SLOT="6"
+SLOT="7"
 
-KEYWORDS="x86 amd64"
+KEYWORDS="~x86 ~amd64"
 #IUSE="objc++"
 IUSE=""
 
-DEPEND="sys-devel/dsymutil-apple
+DEPEND="app-arch/xar
+	sys-devel/dsymutil-apple
 	sys-devel/llvm[clang]
 	gnustep-base/libobjc2"
 RDEPEND=""

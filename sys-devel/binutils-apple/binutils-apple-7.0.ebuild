@@ -23,7 +23,7 @@ EGIT_REPO_URI="git://github.com/kwhat/${PN}.git"
 EGIT_BRANCH="${PV}"
 
 LICENSE="APSL-2"
-SLOT="0"
+SLOT="7"
 
 KEYWORDS="~x86 ~amd64"
 #IUSE="objc++"
