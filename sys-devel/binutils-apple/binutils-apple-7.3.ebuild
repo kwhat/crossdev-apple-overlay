@@ -25,7 +25,7 @@ EGIT_BRANCH="7.3"
 LICENSE="APSL-2"
 SLOT="7"
 
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~ppc ~ppc64 ~x86"
 #IUSE="objc++"
 IUSE=""
 
