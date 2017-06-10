@@ -1,10 +1,10 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=6
 
-inherit git-2
+inherit git-r3
 
 SRC_URI=""
 KEYWORDS="~amd64 ~x86"
@@ -17,7 +17,9 @@ LICENSE="BSD-2 BSD APSL MIT"
 SLOT="0"
 IUSE="+libcxx"
 
-DEPEND="dev-libs/opencflite >=sys-devel/llvm-3.5[clang]"
+DEPEND="dev-libs/opencflite
+	sys-devel/llvm
+	sys-devel/clang-runtime"
 RDEPEND="${DEPEND}"
 
 #src_configure() {
@@ -34,5 +36,5 @@ src_install() {
 	dolib.so libmac.so || die
 	dobin maloader-extract macho2elf ld-mac || die
 	dobin unpack_xcode.sh binfmt_misc.sh || die
-	dodoc README || die
+	dodoc README.md || die
 }
