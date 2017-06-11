@@ -20,7 +20,7 @@ is_cross() { [[ ${CHOST} != ${CTARGET} ]] ; }
 HOMEPAGE="http://www.opensource.apple.com"
 DESCRIPTION="Darwin assembler as(1) and static linker ld(1)"
 EGIT_REPO_URI="git://github.com/kwhat/${PN}.git"
-EGIT_BRANCH="master"
+EGIT_BRANCH="${PV}"
 
 LICENSE="APSL-2"
 SLOT="7"

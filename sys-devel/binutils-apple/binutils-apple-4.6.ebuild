@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="5"
+EAPI="6"
 
-inherit autotools eutils git-2 toolchain-funcs
+inherit autotools eutils git-r3 llvm toolchain-funcs
 
 RESTRICT="test" # the test suite will test what's installed.
 
@@ -18,27 +18,27 @@ is_cross() { [[ ${CHOST} != ${CTARGET} ]] ; }
 
 # See: https://code.google.com/p/ios-toolchain-based-on-clang-for-linux/
 HOMEPAGE="http://www.opensource.apple.com"
-DESCRIPTION="Darwin assembler as(1) and static linker ld(1), XCode Tools ${PV}"
+DESCRIPTION="Darwin assembler as(1) and static linker ld(1)"
 EGIT_REPO_URI="git://github.com/kwhat/${PN}.git"
 EGIT_BRANCH="${PV}"
 
 LICENSE="APSL-2"
 SLOT="4"
 
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="-amd64 -ppc -ppc64 -x86"
 #IUSE="objc++"
 IUSE=""
 
-DEPEND="sys-devel/dsymutil-apple
-	sys-devel/llvm[clang]
+DEPEND="app-arch/xar
+	sys-devel/dsymutil-apple
+	sys-devel/llvm
+	sys-devel/clang-runtime
 	gnustep-base/libobjc2"
 RDEPEND=""
 
 #DEPEND="objc++? ( sys-devel/gcc[objc++] )
 #       !objc++? ( sys-devel/gcc )"
 #RDEPEND=""
-
-S=${WORKDIR}/${P/-apple/}
 
 BINPATH=usr/${CHOST}/${CTARGET}/${PN}/${PV}/
 #LIBPATH=usr/$(get_libdir)/odcctools/${CTARGET}/${PV}
@@ -48,15 +48,18 @@ pkg_setup() {
 	if ! is_cross ; then
 		die "Invalid configuration; do not emerge this directly"
 	fi
+	
+	llvm_pkg_setup
 }
 
 src_prepare() {
+	eapply_user
 	eautoreconf
 }
 
 src_configure() {
-	CC=clang \
-	CXX=clang++ \
+	CFLAGS="${CFLAGS} -I$(get_llvm_prefix)/include" \
+	CXXFLAGS="${CXXFLAGS} -I$(get_llvm_prefix)/include" \
 	econf --prefix=/usr || die
 }
 
