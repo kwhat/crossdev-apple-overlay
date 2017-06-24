@@ -58,9 +58,8 @@ src_prepare() {
 }
 
 src_configure() {
-	local llvm_path=get_llvm_prefix
-	CFLAGS="${CFLAGS} -I${llvm_path}/include" \
-	CXXFLAGS="${CXXFLAGS} -I${llvm_path}/include" \
+	CFLAGS="${CFLAGS} -I$(get_llvm_prefix)/include" \
+	CXXFLAGS="${CXXFLAGS} -I$(get_llvm_prefix)/include" \
 	econf --prefix=/usr || die
 }
 
