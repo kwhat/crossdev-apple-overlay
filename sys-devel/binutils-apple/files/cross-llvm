@@ -1,0 +1,9 @@
+#!/bin/bash
+# Copyright 2019 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+SCRIPTNAME=${0##*/}
+SCRIPTPATH=$(dirname $(realpath ${0}))
+TARGET=$(echo ${SCRIPTNAME%clang*} | sed -e 's/-$//g')
+
+${SCRIPTNAME##*-} -target ${TARGET:=$(uname -m)-apple-darwin} -B ${SCRIPTPATH} $@

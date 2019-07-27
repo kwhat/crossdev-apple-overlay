@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <use>
+    <flag name="lto">Enable LTO linker options.</flag>
+    <flag name="objc">Enable Obj-C support.</flag>
+  </use>
+</pkgmetadata>
