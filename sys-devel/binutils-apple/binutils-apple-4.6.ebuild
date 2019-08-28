@@ -53,7 +53,7 @@ if is_cross ; then
 		app-eselect/eselect-binutils-apple"
 fi
 
-RDEPEND=""
+RDEPEND="sys-devel/clang"
 
 pkg_setup() {
 	llvm_pkg_setup
