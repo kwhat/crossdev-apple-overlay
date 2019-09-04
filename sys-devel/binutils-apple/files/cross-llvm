@@ -6,4 +6,4 @@ SCRIPTNAME=${0##*/}
 SCRIPTPATH=$(dirname $(realpath ${0}))
 TARGET=$(echo ${SCRIPTNAME%clang*} | sed -e 's/-$//g')
 
-${SCRIPTNAME##*-} -target ${TARGET:=$(uname -m)-apple-darwin} -B ${SCRIPTPATH} $@
+$(llvm-config --bindir)/${SCRIPTNAME##*-} -target ${TARGET:=$(uname -m)-apple-darwin} -B ${SCRIPTPATH} $@
